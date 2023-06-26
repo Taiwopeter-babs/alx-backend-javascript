@@ -1,5 +1,5 @@
 node_modules/
-*.main.js
+*-main.js
 package-lock.json
 # eslint config
 .eslintrc.js
