@@ -3,12 +3,5 @@ const uploadPhoto = require('./5-photo-reject');
 
 module.exports = async function handleProfileSignup(firstName, lastName, filename) {
   return Promise.allSettled([signUpUser(firstName, lastName), uploadPhoto(filename)])
-    .then((values) => {
-      const results = [];
-      values.forEach((res) => results.push({
-        status: res.status,
-        value: res.status === 'fulfilled' ? res.value : res.reason,
-      }));
-      return results;
-    });
+    .then((values) => values);
 };
