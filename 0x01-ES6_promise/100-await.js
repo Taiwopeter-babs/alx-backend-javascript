@@ -9,12 +9,4 @@ module.exports = async function asyncUploadUser() {
     })
     .catch(() => { [response.photo, response.user] = [null, null]; });
   return response;
-
-  // try {
-  //   [response.photo, response.user] = await Promise.all([uploadPhoto(), createUser()]);
-  //   return response;
-  // } catch (error) {
-  //   [response.photo, response.user] = [null, null];
-  //   return response;
-  // }
 };
