@@ -1,5 +1,5 @@
-const { uploadPhoto } = require('./utils');
-const { createUser } = require('./utils');
+const uploadPhoto = require('./utils').uploadPhoto;
+const createUser = require('./utils').createUser;
 
 module.exports = function handleProfileSignup() {
   return Promise.all([uploadPhoto(), createUser()])
