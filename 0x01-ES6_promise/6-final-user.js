@@ -7,7 +7,7 @@ module.exports = async function handleProfileSignup(firstName, lastName, filenam
       const results = [];
       values.forEach((res) => results.push({
         status: res.status,
-        value: res.status === 'fulfilled' ? res.value : res.reason,
+        value: res.status === 'fulfilled' ? res.value : `Error: ${res.reason}`,
       }));
       return results;
     });
