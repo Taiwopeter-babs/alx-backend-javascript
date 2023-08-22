@@ -1,7 +1,7 @@
-// const countStudents = require('./3-read_file_async');
+const http = require('http');
+const fs = require('fs');
 
-
-function countStudents(filePath) {
+function countStudents (filePath) {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, { encoding: 'utf-8', flag: 'r' }, (error, data) => {
       if (error) {
@@ -31,19 +31,38 @@ function countStudents(filePath) {
       const cl = csArr.join(', ');
       const swel = sweArr.join(', ');
 
-      outputStr += `Number of students in CS: ${CSfieldCount}. List: ${cl}`;
+      outputStr += `Number of students in CS: ${CSfieldCount}. List: ${cl}\n`;
       outputStr += `Number of students in SWE: ${SWEfieldCount}. List: ${swel}`;
       resolve(outputStr);
     });
   });
+}
+
+const requestListener = function (req, res) {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  switch (req.url) {
+    case '/':
+      res.write('Hello Holberton School!');
+      break;
+    case '/students':
+      res.write('This is the list of our students\n');
+      countStudents(process.argv.slice(-1).toString())
+        .then((outputStr) => {
+          res.end(outputStr);
+        })
+        .catch((error) => {
+          res.statusCode = 404;
+          res.end('Cannot load the database');
+        });
+      break;
+  }
 };
 
-countStudents(process.argv[2])
-  .then((output) => {
-    console.log(output);
-  })
-  .catch((error) => {
-    console.error(error);
-  })
+const app = http.createServer(requestListener);
 
-// console.log("After!");
+app.listen(1245, 'localhost', () => {
+  console.log('Server is listening');
+});
+
+module.exports = app;
