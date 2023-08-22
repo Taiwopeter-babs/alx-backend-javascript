@@ -1,5 +1,7 @@
-const http = require('http');
+const express = require('express');
 const fs = require('fs');
+
+const app = express();
 
 function countStudents(filePath) {
   return new Promise((resolve, reject) => {
@@ -37,37 +39,23 @@ function countStudents(filePath) {
     });
   });
 }
+const port = 1245;
 
-const requestListener = (req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  switch (req.url) {
-    case '/':
-      res.write('Hello Holberton School!');
-      break;
-    case '/students':
-      res.write('This is the list of our students\n');
-      countStudents(process.argv.slice(-1).toString())
-        .then((outputStr) => {
-          res.end(outputStr);
-        })
-        .catch(() => {
-          res.statusCode = 404;
-          res.end('Cannot load the database');
-        });
-      break;
+app.get('/', (req, res) => {
+  res.send('Hello Holberton School!');
+});
 
-    default:
-      res.statusCode = 404;
-      res.end('Not Found');
-      break;
+app.get('/students', async (req, res) => {
+  try {
+    const outResult = await countStudents(process.argv.slice(-1).toString());
+    res.send(`This is the list of our students\n${outResult}`);
+  } catch (error) {
+    res.send('Cannot load the database');
   }
-};
+});
 
-const app = http.createServer(requestListener);
-
-app.listen(1245, 'localhost', () => {
-  console.log('Server is listening');
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
 
 module.exports = app;
