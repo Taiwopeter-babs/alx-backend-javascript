@@ -44,6 +44,7 @@ const requestListener = (req, res) => {
   switch (req.url) {
     case '/':
       res.write('Hello Holberton School!');
+      res.end();
       break;
     case '/students':
       res.write('This is the list of our students\n');
@@ -64,9 +65,10 @@ const requestListener = (req, res) => {
   }
 };
 
+const [port, host] = [1245, 'localhost'];
 const app = http.createServer(requestListener);
 
-app.listen(1245, 'localhost', () => {
+app.listen(port, host, () => {
   console.log('Server is listening');
 });
 
