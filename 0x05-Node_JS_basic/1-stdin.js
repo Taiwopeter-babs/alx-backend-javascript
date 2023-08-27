@@ -1,4 +1,4 @@
-const { spawn } = require('node:child_process');
+require('node:child_process');
 
 // set Input encoding
 // process.stdin.setEncoding('utf8');
@@ -6,14 +6,13 @@ const { spawn } = require('node:child_process');
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 // read input and write to stdout
-process.stdin.on('readable', function () {
+process.stdin.on('readable', () => {
   const data = process.stdin.read();
   if (data) {
     process.stdout.write(`Your name is: ${data}`);
   }
+});
 
-})
-
-process.stdin.on('end', function () {
+process.stdin.on('end', () => {
   process.stdout.write('This important software is now closing\n');
 });
