@@ -1,7 +1,7 @@
 const readDatabase = require('../utils');
 
 class StudentsController {
-  static getAllStudents(request, response) {
+  static async getAllStudents(request, response) {
     const outputResponse = [];
     return readDatabase(process.argv.slice(-1).toString())
       .then((students) => {
@@ -18,7 +18,7 @@ class StudentsController {
       .catch(() => response.status(500).send('Cannot load the database'));
   }
 
-  static getAllStudentsByMajor(request, response) {
+  static async getAllStudentsByMajor(request, response) {
     const studentsMajor = request.params.major;
 
     return readDatabase(process.argv.slice(-1).toString())

@@ -14,6 +14,7 @@ module.exports = function readDatabase(filePath) {
 
       for (let idx = 1; idx < students.length; idx += 1) {
         if (students[idx].includes('CS')) {
+          // extract the first names
           csArr.push(students[idx].split(',')[0]);
         } else if (students[idx].includes('SWE')) {
           sweArr.push(students[idx].split(',')[0]);
