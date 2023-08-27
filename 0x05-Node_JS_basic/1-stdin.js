@@ -1,4 +1,4 @@
-require('node:child_process');
+require('child_process');
 
 // set Input encoding
 // process.stdin.setEncoding('utf8');
