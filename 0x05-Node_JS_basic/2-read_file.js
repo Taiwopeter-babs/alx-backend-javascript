@@ -1,4 +1,3 @@
-const { error } = require('console');
 const fs = require('fs');
 
 module.exports = function countStudents(filePath) {
@@ -12,15 +11,15 @@ module.exports = function countStudents(filePath) {
     const data = fs.readFileSync(filePath, { encoding: 'utf-8', flag: 'r' });
     const students = data.split('\n');
 
-    for (let idx = 1; idx < students.length; idx++) {
+    for (let idx = 1; idx < students.length; idx += 1) {
       if (students[idx].includes('CS')) {
-        CSfieldCount++;
+        CSfieldCount += 1;
         csArr.push(students[idx].split(',')[0]);
       } else if (students[idx].includes('SWE')) {
-        SWEfieldCount++;
+        SWEfieldCount += 1;
         sweArr.push(students[idx].split(',')[0]);
       }
-      studentCount++;
+      studentCount += 1;
     }
     console.log(`Number of students: ${studentCount}`);
     const cl = csArr.join(', ');
